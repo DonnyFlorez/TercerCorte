@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donny's GitHub Repo Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>🔎 Donny's GitHub Repo Finder</h1>
+      <p>Descubre proyectos populares por lenguaje</p>
+    </header>
+
+    <main>
+      <div class="controls">
+        <label for="languageSelect">Elige un lenguaje:</label>
+        <select id="languageSelect">
+          <option value="">-- Selecciona --</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Python">Python</option>
+          <option value="Java">Java</option>
+          <option value="C++">C++</option>
+          <option value="Go">Go</option>
+        </select>
+      </div>
+
+      <div id="statusMessage" class="status-box"></div>
+
+      <div id="repoCard" class="repo-card hidden">
+        <h2 id="repoName"></h2>
+        <p id="repoDesc"></p>
+        <div class="repo-stats">
+          <span id="stars">⭐</span>
+          <span id="forks">🍴</span>
+          <span id="issues">🐞</span>
+        </div>
+        <a id="repoLink" href="#" target="_blank" class="repo-link">Ver en GitHub ↗</a>
+      </div>
+
+      <button id="refreshBtn" class="refresh-btn hidden">🔄 Otro repositorio</button>
+    </main>
+
+    <footer>
+      <p>Creado con ❤️ por Donny</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
