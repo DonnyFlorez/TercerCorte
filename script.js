@@ -1,64 +1,53 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #fff;
-  text-align: center;
-}
+const languageSelect = document.getElementById("languageSelect");
+const repoDisplay = document.getElementById("repoDisplay");
+const refreshBtn = document.getElementById("refreshBtn");
 
-.container {
-  margin-top: 50px;
-}
+let currentLanguage = "";
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
+languageSelect.addEventListener("change", () => {
+  const selected = languageSelect.value;
+  currentLanguage = selected;
+  if (selected === "") {
+    repoDisplay.textContent = "Por favor selecciona un lenguaje";
+    refreshBtn.classList.add("hidden");
+    return;
+  }
+  fetchRepo(selected);
+});
 
-.highlight {
-  color: #00bcd4;
-}
+refreshBtn.addEventListener("click", () => {
+  if (currentLanguage) {
+    fetchRepo(currentLanguage);
+  }
+});
 
-select {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  margin: 10px 0;
-}
+function fetchRepo(language) {
+  repoDisplay.textContent = "Cargando repositorio...";
+  refreshBtn.classList.add("hidden");
 
-.card {
-  background-color: rgba(255, 255, 255, 0.1);
-  margin: 20px auto;
-  padding: 20px;
-  max-width: 400px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-}
+  fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Error al obtener los datos");
+      return res.json();
+    })
+    .then((data) => {
+      if (data.items.length === 0) {
+        repoDisplay.textContent = "No se encontraron repositorios.";
+        return;
+      }
 
-.card p {
-  margin: 8px 0;
-}
-
-button {
-  background-color: #00bcd4;
-  color: #000;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #0097a7;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  margin-top: 40px;
-  opacity: 0.6;
-  font-size: 0.9rem;
+      const randomRepo = data.items[Math.floor(Math.random() * data.items.length)];
+      repoDisplay.innerHTML = `
+        <h3><a href="${randomRepo.html_url}" target="_blank" style="color: #00bcd4;">${randomRepo.name}</a></h3>
+        <p>${randomRepo.description || "Sin descripción"}</p>
+        <p>🌟 Estrellas: ${randomRepo.stargazers_count}</p>
+        <p>🍴 Forks: ${randomRepo.forks_count}</p>
+        <p>🐞 Issues abiertas: ${randomRepo.open_issues_count}</p>
+      `;
+      refreshBtn.classList.remove("hidden");
+    })
+    .catch(() => {
+      repoDisplay.innerHTML = `<p style="color: #ff6b6b;">Error al obtener repositorios.</p>`;
+      refreshBtn.classList.remove("hidden");
+    });
 }
