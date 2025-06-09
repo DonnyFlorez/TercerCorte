@@ -8,6 +8,7 @@ body {
 
 .container {
   margin-top: 50px;
+  padding: 0 20px;
 }
 
 h1 {
@@ -20,10 +21,10 @@ h1 {
 }
 
 select {
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   border: none;
-  margin: 10px 0;
+  margin: 15px 0;
 }
 
 .card {
@@ -59,6 +60,6 @@ button:hover {
 
 footer {
   margin-top: 40px;
-  opacity: 0.6;
+  opacity: 0.7;
   font-size: 0.9rem;
 }
