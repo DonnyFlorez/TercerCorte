@@ -1,70 +1,64 @@
-const select = document.getElementById("language-select");
-const status = document.getElementById("status");
-const repoCard = document.getElementById("repo-card");
-const refreshBtn = document.getElementById("refresh-btn");
-
-let currentLanguage = "";
-
-select.addEventListener("change", () => {
-  const lang = select.value;
-  if (!lang) {
-    status.textContent = "Please select a language";
-    repoCard.classList.add("hidden");
-    refreshBtn.classList.add("hidden");
-    return;
-  }
-
-  currentLanguage = lang;
-  fetchRepository(lang);
-});
-
-refreshBtn.addEventListener("click", () => {
-  fetchRepository(currentLanguage);
-});
-
-function fetchRepository(language) {
-  status.textContent = "Loading, please wait..";
-  status.style.backgroundColor = "#e0e0e0";
-  repoCard.classList.add("hidden");
-  refreshBtn.classList.add("hidden");
-
-  fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars`)
-    .then(res => {
-      if (!res.ok) throw new Error("Network error");
-      return res.json();
-    })
-    .then(data => {
-      if (data.items.length === 0) {
-        status.textContent = "No repositories found";
-        return;
-      }
-
-      const randomRepo = data.items[Math.floor(Math.random() * data.items.length)];
-      showRepository(randomRepo);
-    })
-    .catch(err => {
-      status.textContent = "Error fetching repositories";
-      status.style.backgroundColor = "#f8d7da";
-      refreshBtn.textContent = "Click to retry";
-      refreshBtn.classList.remove("hidden");
-    });
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  text-align: center;
 }
 
-function showRepository(repo) {
-  status.textContent = "";
-  status.style.backgroundColor = "#e0e0e0";
+.container {
+  margin-top: 50px;
+}
 
-  repoCard.innerHTML = `
-    <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
-    <p>${repo.description || "No description provided."}</p>
-    <p>
-      <strong>🌐 ${repo.language || "N/A"}</strong> | 
-      ⭐ ${repo.stargazers_count} | 
-      🍴 ${repo.forks_count} | 
-      🐛 ${repo.open_issues_count}
-    </p>
-  `;
-  repoCard.classList.remove("hidden");
-  refreshBtn.textContent = "Refresh";
-  refreshBtn.classList.remove("hidden");
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  color: #00bcd4;
+}
+
+select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  margin: 10px 0;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.card p {
+  margin: 8px 0;
+}
+
+button {
+  background-color: #00bcd4;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  margin-top: 40px;
+  opacity: 0.6;
+  font-size: 0.9rem;
 }
