@@ -27,7 +27,7 @@ function fetchRepo(language) {
 
   fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars`)
     .then((res) => {
-      if (!res.ok) throw new Error("Error al obtener los datos");
+      if (!res.ok) throw new Error("Error al obtener datos");
       return res.json();
     })
     .then((data) => {
