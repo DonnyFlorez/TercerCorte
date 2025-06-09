@@ -3,34 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GitHub Repo Finder</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Donny's GitHub Repo Finder</title>
+  <!-- Enlace correcto al archivo de estilos -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
-    <h1>🔍 <span class="highlight">Donny's GitHub Repo Finder</span></h1>
-    <p class="subtitle">Descubre proyectos populares por lenguaje</p>
+    <h1>🔍 Donny's <span class="highlight">GitHub Repo Finder</span></h1>
+    <p>Descubre proyectos populares por lenguaje</p>
 
-    <label for="language-select">Elige un lenguaje:</label>
-    <select id="language-select">
+    <label for="languageSelect">Elige un lenguaje:</label>
+    <select id="languageSelect">
       <option value="">-- Selecciona --</option>
-      <option value="JavaScript">JavaScript</option>
-      <option value="Python">Python</option>
-      <option value="Java">Java</option>
-      <option value="C%2B%2B">C++</option>
-      <option value="Ruby">Ruby</option>
-      <option value="Go">Go</option>
-      <option value="TypeScript">TypeScript</option>
+      <option value="javascript">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="java">Java</option>
+      <option value="php">PHP</option>
+      <option value="c%2B%2B">C++</option>
     </select>
 
-    <div id="status" class="status">Selecciona un lenguaje para comenzar</div>
-    <div id="repo-card" class="card hidden"></div>
-    <button id="refresh-btn" class="hidden">🔄 Mostrar otro</button>
+    <div id="repoDisplay" class="card">Por favor selecciona un lenguaje</div>
 
-    <footer class="footer">
-      Creado con ❤️ por Donny
-    </footer>
+    <button id="refreshBtn" class="hidden">🔁 Actualizar</button>
+
+    <footer>Creado con ❤️ por Donny</footer>
   </main>
+
+  <!-- Enlace correcto al script JS -->
   <script src="script.js"></script>
 </body>
 </html>
