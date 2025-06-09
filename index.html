@@ -3,16 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buscador de Repositorios GitHub</title>
-  <!-- Enlace correcto al archivo CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <title>Donny's GitHub Repo Finder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #00bcd4;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin: 10px 0;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .card p {
+      margin: 8px 0;
+    }
+
+    button {
+      background-color: #00bcd4;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <main class="container">
-    <h1>🔍 Buscador de <span class="highlight">Repositorios GitHub</span></h1>
-    <p>Selecciona un lenguaje de programación para ver un proyecto popular</p>
+    <h1>🔍 Donny's <span class="highlight">GitHub Repo Finder</span></h1>
+    <p>Descubre proyectos populares por lenguaje</p>
 
-    <label for="languageSelect">Lenguaje:</label>
+    <label for="languageSelect">Elige un lenguaje:</label>
     <select id="languageSelect">
       <option value="">-- Selecciona --</option>
       <option value="javascript">JavaScript</option>
@@ -22,14 +86,67 @@
       <option value="c%2B%2B">C++</option>
     </select>
 
-    <div id="repoDisplay" class="card">Esperando selección...</div>
+    <div id="repoDisplay" class="card">Por favor selecciona un lenguaje</div>
 
-    <button id="refreshBtn" class="hidden">🔁 Obtener otro</button>
+    <button id="refreshBtn" class="hidden">🔁 Actualizar</button>
 
-    <footer>Desarrollado por Donny Florez</footer>
+    <footer>Creado con ❤️ por Donny</footer>
   </main>
 
-  <!-- Enlace correcto al archivo JS -->
-  <script src="script.js"></script>
+  <script>
+    const languageSelect = document.getElementById("languageSelect");
+    const repoDisplay = document.getElementById("repoDisplay");
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    let currentLanguage = "";
+
+    languageSelect.addEventListener("change", () => {
+      const selected = languageSelect.value;
+      currentLanguage = selected;
+      if (selected === "") {
+        repoDisplay.textContent = "Por favor selecciona un lenguaje";
+        refreshBtn.classList.add("hidden");
+        return;
+      }
+      fetchRepo(selected);
+    });
+
+    refreshBtn.addEventListener("click", () => {
+      if (currentLanguage) {
+        fetchRepo(currentLanguage);
+      }
+    });
+
+    function fetchRepo(language) {
+      repoDisplay.textContent = "Cargando repositorio...";
+      refreshBtn.classList.add("hidden");
+
+      fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Error al obtener los datos");
+          return res.json();
+        })
+        .then((data) => {
+          if (data.items.length === 0) {
+            repoDisplay.textContent = "No se encontraron repositorios.";
+            return;
+          }
+
+          const randomRepo = data.items[Math.floor(Math.random() * data.items.length)];
+          repoDisplay.innerHTML = `
+            <h3><a href="${randomRepo.html_url}" target="_blank" style="color: #00bcd4;">${randomRepo.name}</a></h3>
+            <p>${randomRepo.description || "Sin descripción"}</p>
+            <p>🌟 Estrellas: ${randomRepo.stargazers_count}</p>
+            <p>🍴 Forks: ${randomRepo.forks_count}</p>
+            <p>🐞 Issues abiertas: ${randomRepo.open_issues_count}</p>
+          `;
+          refreshBtn.classList.remove("hidden");
+        })
+        .catch(() => {
+          repoDisplay.innerHTML = `<p style="color: #ff6b6b;">Error al obtener repositorios.</p>`;
+          refreshBtn.classList.remove("hidden");
+        });
+    }
+  </script>
 </body>
 </html>
