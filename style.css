@@ -1,102 +1,64 @@
-/* Fondo y estructura general */
 body {
   margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
 }
 
-/* Contenedor */
 .container {
-  max-width: 600px;
-  width: 90%;
-  padding: 20px;
-  border-radius: 10px;
+  margin-top: 50px;
 }
 
-/* Título principal */
 h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
 .highlight {
-  color: #61dafb;
+  color: #00bcd4;
 }
 
-/* Subtítulo */
-.subtitle {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  color: #ccc;
-}
-
-/* Selector */
 select {
-  padding: 10px;
-  font-size: 1rem;
+  padding: 8px;
+  border-radius: 6px;
   border: none;
-  border-radius: 6px;
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 
-/* Mensaje de estado */
-.status {
-  padding: 15px;
-  margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-}
-
-/* Tarjeta del repositorio */
 .card {
   background-color: rgba(255, 255, 255, 0.1);
-  border-left: 5px solid #61dafb;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  text-align: left;
-}
-
-.card a {
-  color: #61dafb;
-  text-decoration: none;
-  font-weight: bold;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+  font-size: 0.95rem;
 }
 
 .card p {
-  margin: 5px 0;
+  margin: 8px 0;
 }
 
-/* Botón de refrescar */
 button {
-  background-color: #61dafb;
+  background-color: #00bcd4;
   color: #000;
-  border: none;
   padding: 10px 20px;
+  border: none;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #4ec6e3;
+  background-color: #0097a7;
 }
 
 .hidden {
   display: none;
 }
 
-/* Footer */
-.footer {
-  margin-top: 30px;
+footer {
+  margin-top: 40px;
+  opacity: 0.6;
   font-size: 0.9rem;
-  color: #aaa;
 }
