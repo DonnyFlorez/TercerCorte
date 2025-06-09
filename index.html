@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Donny's GitHub Repo Finder</title>
-  <!-- Enlace correcto al archivo de estilos -->
+  <title>Buscador de Repositorios GitHub</title>
+  <!-- Enlace correcto al archivo CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
-    <h1>🔍 Donny's <span class="highlight">GitHub Repo Finder</span></h1>
-    <p>Descubre proyectos populares por lenguaje</p>
+    <h1>🔍 Buscador de <span class="highlight">Repositorios GitHub</span></h1>
+    <p>Selecciona un lenguaje de programación para ver un proyecto popular</p>
 
-    <label for="languageSelect">Elige un lenguaje:</label>
+    <label for="languageSelect">Lenguaje:</label>
     <select id="languageSelect">
       <option value="">-- Selecciona --</option>
       <option value="javascript">JavaScript</option>
@@ -22,14 +22,14 @@
       <option value="c%2B%2B">C++</option>
     </select>
 
-    <div id="repoDisplay" class="card">Por favor selecciona un lenguaje</div>
+    <div id="repoDisplay" class="card">Esperando selección...</div>
 
-    <button id="refreshBtn" class="hidden">🔁 Actualizar</button>
+    <button id="refreshBtn" class="hidden">🔁 Obtener otro</button>
 
-    <footer>Creado con ❤️ por Donny</footer>
+    <footer>Desarrollado por Donny Florez</footer>
   </main>
 
-  <!-- Enlace correcto al script JS -->
+  <!-- Enlace correcto al archivo JS -->
   <script src="script.js"></script>
 </body>
 </html>
